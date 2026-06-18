@@ -27,6 +27,19 @@ while True:
         
 
 number_gussing_game()    
+
+
+
+def find_second_last():
+    numbers=[1,4,6,7,4,5,3]
+    if len(numbers)<2:
+        return None
+    
+    
+
+    
+
+    
     
     
     
