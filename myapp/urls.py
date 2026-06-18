@@ -39,11 +39,13 @@ urlpatterns = [
 
     # Protected View
     path('api/protected/', ProtectedView.as_view(), name='protected-view'),
+    path('api/login/', CustomTokenObtainPairView.as_view(), name='api-login'),
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/signup/', RegisterView.as_view(), name='api-signup'),
     path('api/register/', RegisterView.as_view(), name='register'),
     path('blog/', blogViewSet.as_view({'get': 'list', 'post': 'create'}), name='blog-list'),
-     path('protected-api-endpoint/', ProtectedView.as_view(), name='protected-api-endpoint'),
+    path('protected-api-endpoint/', ProtectedView.as_view(), name='protected-api-endpoint'),
     
 ]
 
