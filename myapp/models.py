@@ -123,7 +123,7 @@ class my_Order(models.Model):
 class Book(models.Model):
     book_id = models.AutoField(primary_key=True, serialize=False)
     name = models.CharField(max_length=100)
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey('Author', related_name='books', on_delete=models.CASCADE)
     price = models.IntegerField()
     publiced_date = models.DateField()
     
@@ -131,7 +131,7 @@ class Book(models.Model):
         db_table = 'book'
         
     def __str__(self):
-        return f"{self.name} by {self.author}"
+        return f"{self.name} by {self.author.name}"
     
     
     
@@ -167,3 +167,9 @@ class COMMENTS(models.Model):
     def __str__(self):
         return f'comment by {self.name} on {self.post} posts'
         
+class Author(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+            
