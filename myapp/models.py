@@ -163,6 +163,9 @@ class COMMENTS(models.Model):
     name=models.CharField(max_length=100)
     body=models.CharField(max_length=1000)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def count(self):
+        return self.title.count()
     
     def __str__(self):
         return f'comment by {self.name} on {self.post} posts'
@@ -175,3 +178,5 @@ class Author(models.Model):
             
     def book_count(self):
         return self.books.count()        
+    
+    
