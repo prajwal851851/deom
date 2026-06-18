@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Profile Link</title>
+  <style>
+    /* Centering the content */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Facebook logo container */
+    .facebook-logo {
+      width: 60px;
+      height: 60px;
+      background-color: #1877f2;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .facebook-logo:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(24, 119, 242, 0.5);
+    }
+
+    /* Facebook logo text */
+    .facebook-logo svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Facebook logo as a link -->
+  <a href="https://www.facebook.com/PrajwalDhital " target="_blank" class="facebook-logo" title="Visit my Facebook Profile">
+    <!-- Facebook SVG Icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M22.675 0h-21.35C.596 0 0 .6 0 1.345v21.31C0 23.4.596 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.41c0-3.1 1.893-4.788 4.656-4.788 1.324 0 2.464.098 2.794.142v3.24h-1.917c-1.504 0-1.797.716-1.797 1.764v2.31h3.592l-.467 3.622h-3.125V24h6.13c.73 0 1.325-.6 1.325-1.345V1.345C24 .6 23.404 0 22.675 0z"/>
+    </svg>
+  </a>
+
+</body>
+</html>

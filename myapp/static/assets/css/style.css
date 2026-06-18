@@ -1,0 +1,157 @@
+/* CSS Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #4267B2;
+    color: white;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+.container {
+    max-width: 900px;
+    margin: 60px auto 40px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+    border-bottom: 2px solid #4267B2;
+    padding-bottom: 5px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #555;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4267B2;
+    outline: none;
+}
+button {
+    background-color: #4267B2;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #365899;
+}
+.profile-picture {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.profile-picture img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 2px solid #4267B2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.posts-section {
+    margin-top: 30px;
+}
+.post {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+.post:hover {
+    transform: scale(1.02);
+}
+.post p {
+    margin: 0 0 10px;
+}
+.post img {
+    max-width: 50%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+.like-btn {
+    background-color: #00BFFF;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+.like-btn.liked {
+    background-color: #007BFF;
+}
+.comment-form input {
+    width: 80%;
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.comment-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.comment-form button:hover {
+    background-color: #218838;
+}
+.comments-section {
+    margin-top: 20px;
+}
+.comments-section p {
+    margin: 5px 0;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    .profile-picture img {
+        width: 60px;
+        height: 60px;
+    }
+}

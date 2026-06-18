@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User  Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #4267B2;
+            color: white;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-bottom: 2px solid #4267B2;
+            padding-bottom: 5px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: #4267B2;
+            outline: none;
+        }
+        button {
+            background-color: #4267B2;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #365899;
+        }
+        .profile-picture {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .profile-picture img {
+            border-radius: 30%;
+            width: 100px;
+            height: 90px;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 2px solid #4267B2;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .posts-section {
+            margin-top: 30px;
+        }
+        .post {
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .post:hover {
+            transform: scale(1.02);
+        }
+        .post p {
+            margin: 0 0 10px;
+        }
+        .post img {
+            max-width: 30%;
+            height: auto;
+            border-radius: 80px;
+        }
+        .post button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .like-btn {
+            background-color: #00BFFF;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .like-btn.liked {
+            background-color: #007BFF;
+        }
+        .comment-form input {
+            width: 80%;
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .comment-form button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .comment-form button:hover {
+            background-color: #218838;
+        }
+        .comments-section {
+            margin-top: 20px;
+        }
+        .comments-section p {
+            margin: 5px 0;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .profile-picture img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Like button functionality
+            $('.like-btn').on('click', function () {
+                const postId = $(this).data('post-id');
+                const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+
+                $.ajax({
+                    url: `/post/${postId}/like/`,
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': csrfToken },
+                    success: function (response) {
+                        $(`#like-count-${postId}`).text(response.like_count);
+                        const likeBtn = $(`#like-btn-${postId}`);
+                        likeBtn.text(response.liked ? 'Unlike' : 'Like');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+
+            // Comment form submission
+            $('.comment-form').on('submit', function (event) {
+                event.preventDefault();
+                const postId = $(this).data('post-id');
+                const csrfToken = $('[name=csrfmiddlewaretoken]').val();
+                const content = $(this).find('input[name="content"]').val();
+
+                if (!content) {
+                    alert('Comment cannot be empty.');
+                    return;
+                }
+
+                $.ajax({
+                    url: `/post/${postId}/comment/`,
+                    method: 'POST',
+                    headers: { 'X-CSRFToken': csrfToken },
+                    data: { content: content },
+                    success: function (response) {
+                        const commentHtml = `
+                            <p><strong>${response.username}</strong>: ${response.content}</p>
+                        `;
+                        $(`#comments-${postId}`).append(commentHtml);
+                        $(`#comment-form-${postId}`).find('input[name="content"]').val('');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>My Profile</h1>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Profile Picture and Bio -->
+        <div class="profile-picture">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+            {% else %}
+                <img src="https://via.placeholder.com/80" alt="Default Profile Picture">
+            {% endif %}
+            <div>
+                <h2>{{ profile.user.username }}</h2>
+                <p>{{ profile.bio }}</p>
+            </div>
+        </div>
+
+        <!-- Profile Update Section -->
+        <div class="form-section">
+            <h2>Update Profile</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ profile_form.as_p }}
+                <button type="submit" name="update_profile">Update Profile</button>
+            </form>
+        </div>
+
+        <!-- Post Creation Section -->
+        <div class="form-section">
+            <h2>Create Post</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ post_form.as_p }}
+                <button type="submit" name="create_post">Post</button>
+            </form>
+        </div>
+
+        <!-- Posts Section -->
+        <div class="posts-section">
+            <h2>Your Posts</h2>
+            {% for post in posts %}
+                <div class="post">
+                    <p><strong>{{ post.created_at|date:"F d, Y H:i" }}</strong></p>
+                    <p>{{ post.content }}</p>
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" alt="Post Image">
+                    {% endif %}
+
+                    <!-- Like Button -->
+                    <button id="like-btn-{{ post.id }}" class="like-btn" data-post-id="{{ post.id }}">
+                        {% if request.user in post.likes.all %}Unlike{% else %}Like{% endif %} (<span id="like-count-{{ post.id }}">{{ post.likes.count }}</span>)
+                    </button>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section" id="comments-{{ post.id }}">
+                        <h4>Comments:</h4>
+                        {% for comment in post.comments.all %}
+                            <p><strong>{{ comment.user.username }}</strong>: {{ comment.content }}</p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Comment Form -->
+                    <form id="comment-form-{{ post.id }}" class="comment-form" data-post-id="{{ post.id }}">
+                        {% csrf_token %}
+                        <input type="text" name="content" placeholder="Add a comment..." required>
+                        <button type="submit">Comment</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

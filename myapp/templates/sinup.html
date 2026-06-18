@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+
+        h2 {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        p {
+            margin: 10px 0 5px;
+            color: #555555;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        small {
+            display: block;
+            margin-bottom: 15px;
+            color: #888888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Please Sign Up</h1>
+        <form action="{% url 'sinup' %}" method="POST">
+            {% csrf_token %}
+            {% for message in messages %}
+            <h2>{{ message }}</h2>
+            {% endfor %}
+            <p>Name:</p>
+            <input type="text" name="name" placeholder="Enter your name" value="{{ name|default_if_none:'' }}">
+
+            <p>Email:</p>
+            <input type="text" name="email" placeholder="Enter your email" value="{{ email|default_if_none:'' }}">
+
+            <p>Password:</p>
+            <input type="password" name="password" placeholder="Enter your password">
+
+            <p>Confirm Password:</p>
+            <input type="password" name="confirm_password" placeholder="Confirm your password">
+
+            <small>Password must contain at least one uppercase letter, one number, one special character, and be at least 8 characters long.</small>
+
+            <input type="submit" value="Sign Up">
+        </form>
+        <div class="login-link">
+            <p>already have an account <a href="{% url 'login' %}">login here</a></p>
+    </div>
+</body>
+</html>
+<form method="post">
+    {% csrf_token %}
+    <!-- Other form fields for signup -->
+
+<!-- Button for guest access -->
+<a href="http://127.0.0.1:8000/" class="btn btn-secondary" target="_blank">
+    Visit Website as Guest
+</a>
+
