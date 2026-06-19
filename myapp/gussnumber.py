@@ -75,7 +75,13 @@ def clean_inventory_data(products):
     return cleaned_list
 
 # --- Testing the Function ---
-
+raw_products = [
+    {"name": "  leather jacket ", "price": "$120.00", "stock": 15},
+    {"name": "running shoes", "price": 85.50, "stock": None},
+    {"name": "leather jacket ", "price": "$120.00", "stock": 15}, 
+    {"name": "wireless HEADPHONES", "price": "$59.99", "stock": 42},
+    {"name": "running shoes", "price": 85.50, "stock": None}       
+]
 
 import pprint
 print("Cleaned Inventory:")
