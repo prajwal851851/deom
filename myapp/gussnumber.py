@@ -60,28 +60,7 @@ def clean_inventory_data(products):
         # Create a unique tuple representation to check for absolute duplicates
         product_signature = (clean_name, clean_price, clean_stock)
         
-        # Step 2: Deduplicate using a set
-        if product_signature not in seen_products:
-            seen_products.add(product_signature)
-            cleaned_list.append({
-                "name": clean_name,
-                "price": clean_price,
-                "stock": clean_stock
-            })
-            
-    # Step 3: Sort the final cleaned list alphabetically by product name
-    cleaned_list.sort(key=lambda x: x["name"])
-    
-    return cleaned_list
-
-# --- Testing the Function ---
-raw_products = [
-    {"name": "  leather jacket ", "price": "$120.00", "stock": 15},
-    {"name": "running shoes", "price": 85.50, "stock": None},
-    {"name": "leather jacket ", "price": "$120.00", "stock": 15}, 
-    {"name": "wireless HEADPHONES", "price": "$59.99", "stock": 42},
-    {"name": "running shoes", "price": 85.50, "stock": None}       
-]
+        
 
 import pprint
 print("Cleaned Inventory:")
